@@ -4,14 +4,22 @@ import numpy as np
 import torch
 import torchvision.transforms as T
 import os
+import sys
+current_dir = os.path.dirname(os.path.abspath(__file__))
+mmrotate_local_path = os.path.join(current_dir, 'mmrotate_local_bak')
+if mmrotate_local_path not in sys.path:
+    sys.path.insert(0, mmrotate_local_path)
+
 from mmdet.apis import inference_detector, init_detector, show_result_pyplot
 from mmcv import Config
+import mmrotate
 """ user import lib done """
 
 """ function user define """
 def testSM3Det():
-    configPath = "SM3Det/configs/SM3Det/SM3Det_convnext_t.py"
-    checkpointPath = "SM3Det.pth"
+    configPath = "configs/oriented_rcnn/oriented_rcnn_r50_fpn_1x_dota_le90.py"
+    checkpointPath = "epoch_12.pth"
+    
     if not os.path.exists(configPath):
         print(f"config file not found: {configPath}")
         return
@@ -27,7 +35,6 @@ def testSM3Det():
         print(f"model init failed: {e}")
         return
     
-
     imgDir = r"C:\Users\user\Desktop\比賽\test\SM3Det\bdd100k\bdd100k\images\100k\test"
     
     if not os.path.exists(imgDir):
@@ -66,9 +73,9 @@ def testSM3Det():
         
 """ function user define done"""
 
-
+""" main """
 if __name__ == "__main__":
-    print(" --- start test SM3Det")
+    print("start test SM3Det")
     testSM3Det()
-    print(" --- test SM3Det done")
-
+    print("test SM3Det done")
+""" main done """
